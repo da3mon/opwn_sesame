@@ -1,0 +1,11 @@
+development:
+  adapter: postgresql
+  database: kkp_dev
+  username: kkp
+  encoding: UTF8
+
+test:
+  adapter: postgresql
+  database: kkp_test
+  encoding: UTF8
+  username: da3mon
