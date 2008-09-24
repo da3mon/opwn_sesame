@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+	<head>
+		<link rel="stylesheet" href="/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	</head>
+	<body>
+		<h1>Entry Systems</h1>
+		<ul>
+			<%= @entry_systems.each do |entry_system| %>
+				<li>
+					<ul>
+						<%= @entry_system.attributes.map {|attr| "<li>#{attr.join(': ')}</li>" } %>						
+					</ul>
+				</li>
+			<% end %>
+		</ul>
+	</body>
+</html>
