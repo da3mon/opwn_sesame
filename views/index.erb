@@ -1,0 +1,16 @@
+<h1>entry systems</h1>
+<ul class="entry_systems">
+	<% @entry_systems.each do |entry_system| %>
+		<li>
+			<p><%= entry_system.name %></p>
+			<ul>
+				<li>manufacturer: <%= entry_system.manufacturer %></li>
+				<li>prompt: <%= entry_system.prompt %></li>
+				<li>password: <%= entry_system.password %></li>
+			</ul>
+		</li>
+	<% end %>
+	<div class="links">
+		<a href="/entry_systems/new">enter a new entry system</a>
+	</div>
+</ul>
