@@ -25,27 +25,23 @@ end
 configure do
   DataMapper.setup(:default, 'sqlite3::memory')
   EntrySystem.auto_migrate!
-  
-  not_found do
-    "Lost?!?"
-  end
 end
 
 layout 'layout.erb'
 
 get '/' do
   @entry_systems = EntrySystem.all
-  erb :index
+  erb :index, :views_directory => File.dirname(__FILE__) + "/views/entry_systems"
 end
 
 get '/entry_systems/new' do
   @entry_system = EntrySystem.new
-  erb :new
+  erb :new, :views_directory => File.dirname(__FILE__) + "/views/entry_systems"
 end
 
 get '/entry_systems/:id' do
   @entry_system = EntrySystem.get!(params[:id])
-  erb :show
+  erb :show, :views_directory => File.dirname(__FILE__) + "/views/entry_systems"
 end
 
 post '/entry_systems' do
