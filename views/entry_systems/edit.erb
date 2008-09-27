@@ -1,8 +1,8 @@
 <h1>
-	new entry system
+	entry system
 </h1>
 <p><%= @errors %></p>
-<form action="/entry_systems" method="post">
+<form action="/entry_systems/<%= @entry_system.id %>" method="post">
 	<p>
 		name and manufacturer are required:
 	</p>
@@ -24,6 +24,7 @@
 			<input id="entry_system_password" name="password" size="30" type="text" value="<%= @entry_system.password || "" %>">
 		</li>
 		<li>
+			<input type="hidden" name="_method" value="put">
 			<input type="submit" value="submit">
 		</li>
 	</ul>

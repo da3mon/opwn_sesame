@@ -4,6 +4,21 @@
 		<li>
 			<p><%= entry_system.name %></p>
 			<ul>
+				<li>
+					<a href="/entry_systems/<%= entry_system.id %>/edit">edit</a>&nbsp;
+					<a href="/entry_systems/<%= entry_system.id %>" onclick="if (confirm('Are you sure?')) {
+						var f = document.createElement('form');
+					  f.style.display = 'none';
+						this.parentNode.appendChild(f);
+						f.method = 'POST';
+						f.action = this.href;
+					  var m = document.createElement('input');
+						m.setAttribute('type', 'hidden');
+						m.setAttribute('name', '_method');
+					  m.setAttribute('value', 'delete');
+						f.appendChild(m);f.submit();
+					};return false;">delete</a>
+				</li>
 				<li>manufacturer: <%= entry_system.manufacturer %></li>
 				<li>prompt: <%= entry_system.prompt %></li>
 				<li>password: <%= entry_system.password %></li>

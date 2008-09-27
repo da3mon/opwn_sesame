@@ -2,3 +2,11 @@ html {
 	font-family: Helvetica;
 	font-size: 18px;
 }
+
+body {
+	background-color: #111;
+}
+
+ul {
+	list-style: none;
+}
