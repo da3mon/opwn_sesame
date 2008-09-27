@@ -1,12 +1,14 @@
 <h1>
 	new entry system
 </h1>
-<ul class="errors">
-	<%= @entry_system.errors.map {|msg| "<li>#{msg}</li>" } %>
-</ul>
+<% unless @entry_system.errors.empty? %>
+	<ul class="errors">
+		<%= @entry_system.errors.map {|msg| "<li>#{msg}</li>" } %>
+	</ul>
+<% end %>
 <form action="/entry_systems" method="post">
 	<p>
-		name and manufacturer are required:
+		name and manufacturer are required
 	</p>
 	<ul>
 		<li>
@@ -27,6 +29,9 @@
 		</li>
 		<li>
 			<input type="submit" value="create &rarr;">
+		</li>
+		<li>
+			<a href="/">&larr; index</a>
 		</li>
 	</ul>
 </form>

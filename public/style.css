@@ -16,8 +16,6 @@ ul.errors {
 	margin: 10px;
 }
 
-
-
 li {
 	margin: 5px 5px;
 }
@@ -39,12 +37,12 @@ a {
 	color: #7A9CDD;
 }
 
+a:hover {
+	text-decoration: underline;
+	color: #7A9CDD;
+}
+
 input {
 	background-color: #aaa;
 	border: 1px solid #ddd;
-}
-
-a:hover {
-	text-decoration: underline;
-	color: #5288F1;
 }
