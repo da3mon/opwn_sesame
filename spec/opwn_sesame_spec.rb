@@ -2,7 +2,7 @@
 
 describe "opwn_sesame" do
   require "opwn_sesame"
-  attr_reader :response, :ivars
+  attr_reader :response
   before(:each) do
     EntrySystem.all.should == []
   end
@@ -36,9 +36,6 @@ describe "opwn_sesame" do
     context "with valid params" do
       it "creates the entry_system and redirects" do      
         post_it "/entry_systems", :name => params[:name], :manufacturer => params[:manufacturer]
-
-        p response
-        p body
 
         response.should be_redirection
         follow!

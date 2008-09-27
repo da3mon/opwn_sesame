@@ -5,10 +5,12 @@
 </h3>
 <ul>
 	<li>
-		<%= @entry_system.prompt %>
+		prompt: <%= @entry_system.prompt %>
 	</li>
 	<li>
-		<%= @entry_system.password %>
+		default password: <%= @entry_system.password %>
 	</li>
+	<a href="/entry_systems/<%= @entry_system.id %>/images/new">add image</a>
+	<br />
 	<a href="/entry_systems/<%= @entry_system.id %>/edit">edit</a>
 </ul>

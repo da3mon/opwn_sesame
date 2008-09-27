@@ -1,12 +1,50 @@
 html {
 	font-family: Helvetica;
 	font-size: 18px;
-}
-
-body {
-	background-color: #111;
+	color: #ddd;
+	background-color: #222;
 }
 
 ul {
 	list-style: none;
+}
+
+ul.errors {
+	color: #000;
+	background-color: #800000;
+	padding: 10px;
+	margin: 10px;
+}
+
+
+
+li {
+	margin: 5px 5px;
+}
+
+li.even {
+	background-color: #282828;
+	padding: 5px 5px;
+	margin: 0;
+}
+
+li.odd {
+	background-color: #333;
+	padding: 5px 5px;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+	color: #7A9CDD;
+}
+
+input {
+	background-color: #aaa;
+	border: 1px solid #ddd;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #5288F1;
 }

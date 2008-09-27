@@ -1,0 +1,13 @@
+<h2>upload image for: <%= @entry_system.manufacturer %> - <%= @entry_system.name %></h1>
+<form action="/entry_systems/<%= @entry_system.id %>/images" method="post" multipart="true">
+	<ul class="errors">
+		<%= @image.errors.map {|msg| "<li>#{msg}</li>" %>
+	</ul>
+	<ul>
+		<li>
+			<label for="image">image</label>
+			<input type="file" name="image" value="" id="image">
+		</li>
+		<li><input type="submit" value="upload &rarr;"></li>
+	</ul>
+</form>

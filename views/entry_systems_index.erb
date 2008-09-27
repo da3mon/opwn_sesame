@@ -1,9 +1,12 @@
 <h1>entry systems</h1>
 <ul class="entry_systems">
-	<% @entry_systems.each do |entry_system| %>
-		<li>
+	<% @entry_systems.each_with_index do |entry_system, i| %>
+		<li class="<%= i % 2 == 0 ? 'even' : 'odd' %>">
 			<p><%= entry_system.name %></p>
 			<ul>
+				<li>manufacturer: <%= entry_system.manufacturer %></li>
+				<li>prompt: <%= entry_system.prompt %></li>
+				<li>password: <%= entry_system.password %></li>
 				<li>
 					<a href="/entry_systems/<%= entry_system.id %>/edit">edit</a>&nbsp;
 					<a href="/entry_systems/<%= entry_system.id %>" onclick="if (confirm('Are you sure?')) {
@@ -19,13 +22,10 @@
 						f.appendChild(m);f.submit();
 					};return false;">delete</a>
 				</li>
-				<li>manufacturer: <%= entry_system.manufacturer %></li>
-				<li>prompt: <%= entry_system.prompt %></li>
-				<li>password: <%= entry_system.password %></li>
 			</ul>
 		</li>
 	<% end %>
 	<div class="links">
-		<a href="/entry_systems/new">enter a new entry system</a>
+		<a href="/entry_systems/new">new</a>
 	</div>
 </ul>
