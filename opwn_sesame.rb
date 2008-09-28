@@ -1,4 +1,4 @@
-%w(rubygems sinatra dm-core dm-validations).each { |f| require f }
+%w(rubygems sinatra dm-core dm-validations fileutils).each { |f| require f }
 
 class EntrySystem
   include DataMapper::Resource
@@ -22,15 +22,13 @@ class Image
   belongs_to :entry_system
   
   def data=(tmp_file)
-    p tmp_file.read
     Thread.new do
-      File.open(File.join(File.dirname(__FILE__), *%W[public images #{@entry_system.name}]), 'w') {|f| f << tmp_file.read}
-      tmp_file.close
+      File.open(File.join(File.dirname(__FILE__), *%W[public images #{self.filename}]), 'w') {|f| f.write tmp_file.read}
     end
   end
   
   def destroy
-    FileUtils.rm_rf(File.join(File.dirname(__FILE__), *%W[public images #{self.entry_system.name}]))
+    FileUtils.rm_rf(File.join(File.dirname(__FILE__), *%W[public images #{self.filename}]))
     super
   end
 end
@@ -41,7 +39,6 @@ class PdfManual
   property :filename, String, :nullable => false
   property :content_type, String, :nullable => false
   property :link, String
-  
   property :entry_system_id, Integer
   
   belongs_to :entry_system
@@ -107,7 +104,6 @@ post '/entry_systems/:id/image' do
   if @image.save
     @entry_system.image = @image
     @entry_system.save
-    p params
     redirect "/entry_systems/#{@entry_system.id}"
   else
     erb :images_new
