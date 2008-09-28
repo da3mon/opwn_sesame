@@ -82,12 +82,6 @@ get '/entry_systems/:id/image/new' do
   erb :images_new
 end
 
-get '/entry_systems/:id/image' do
-  @entry_system = EntrySystem.get(params[:id])
-  @image = @entry_system.image
-  erb :images_index
-end
-
 get '/entry_systems/:id/pdf_manual/new' do
   @entry_system = EntrySystem.get(params[:id])
   redirect "/entry_systems/new" unless @entry_system
@@ -152,7 +146,7 @@ post '/entry_systems/:id/pdf_manual' do
     @entry_system.save
     redirect "/entry_systems/#{@entry_system.id}"
   else
-    erb :pdfs_new
+    erb :pdf_manuals_new
   end
 end
 
@@ -176,6 +170,7 @@ delete '/entry_systems/:id/image' do
   @entry_system = EntrySystem.get(params[:id])
   redirect "/" unless @entry_system
   @entry_system.image.destroy if @entry_system.image
+  @entry_system.pdf_manual.destroy if @entry_system.pdf_manual
   redirect "/entry_systems/#{@entry_system.id}"
 end
 
