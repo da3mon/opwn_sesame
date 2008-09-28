@@ -15,8 +15,9 @@ end
 class Image
   include DataMapper::Resource
   property :id, Serial, :key => true
-  property :filename, String, :nullable => false
-  property :content_type, String, :nullable => false
+  property :filename, String
+  property :content_type, String
+  property :link, Text
   property :entry_system_id, Integer
 
   belongs_to :entry_system
@@ -36,12 +37,23 @@ end
 class PdfManual
   include DataMapper::Resource
   property :id, Serial, :key => true
-  property :filename, String, :nullable => false
-  property :content_type, String, :nullable => false
-  property :link, String
+  property :filename, String
+  property :content_type, String
+  property :link, Text
   property :entry_system_id, Integer
   
   belongs_to :entry_system
+
+  def data=(tmp_file)
+    Thread.new do
+      File.open(File.join(File.dirname(__FILE__), *%W[public pdfs #{self.filename}]), 'w') {|f| f.write tmp_file.read}
+    end
+  end
+  
+  def destroy
+    FileUtils.rm_rf(File.join(File.dirname(__FILE__), *%W[public pdfs #{self.filename}]))
+    super
+  end
 end
 
 configure do
@@ -72,9 +84,20 @@ end
 
 get '/entry_systems/:id/image' do
   @entry_system = EntrySystem.get(params[:id])
-  p @entry_system.methods.sort
   @image = @entry_system.image
   erb :images_index
+end
+
+get '/entry_systems/:id/pdf_manual/new' do
+  @entry_system = EntrySystem.get(params[:id])
+  redirect "/entry_systems/new" unless @entry_system
+  @pdf_manual = PdfManual.new
+  erb :pdf_manuals_new
+end
+
+get '/entry_systems/:id/pdf_manual' do
+  @entry_system = EntrySystem.get(params[:id])
+  send_file(File.join(File.dirname(__FILE__), *%W[public pdfs #{@entry_system.pdf_manual.filename}]), :type => "application/pdf", :filename => "#{@entry_system.pdf_manual.filename}.pdf")
 end
 
 get '/entry_systems/:id' do
@@ -100,13 +123,36 @@ end
 post '/entry_systems/:id/image' do
   @entry_system = EntrySystem.get(params[:id])
   redirect "/entry_systems/new" unless @entry_system
-  @image = Image.new(:filename => @entry_system.name.gsub(/\W/, '_'), :content_type => params[:image][:type], :data => params[:image][:tempfile])
+  @image = Image.new(
+    :link => params[:link],
+    :filename => @entry_system.name.gsub(/\W/, '_'),
+    :content_type => params[:image][:type],
+    :data => params[:image][:tempfile]
+  )
   if @image.save
     @entry_system.image = @image
     @entry_system.save
     redirect "/entry_systems/#{@entry_system.id}"
   else
     erb :images_new
+  end
+end
+
+post '/entry_systems/:id/pdf_manual' do
+  @entry_system = EntrySystem.get(params[:id])
+  redirect "/entry_systems/new" unless @entry_system
+  @pdf_manual = PdfManual.new(
+    :link => params[:link],
+    :filename => @entry_system.name.gsub(/\W/, '_'),
+    :content_type => params[:pdf_manual][:type],
+    :data => params[:pdf_manual][:tempfile]
+  )
+  if @pdf_manual.save
+    @entry_system.pdf_manual = @pdf_manual
+    @entry_system.save
+    redirect "/entry_systems/#{@entry_system.id}"
+  else
+    erb :pdfs_new
   end
 end
 
@@ -119,7 +165,10 @@ put '/entry_systems/:id' do
 end
 
 delete '/entry_systems/:id' do
-  EntrySystem.get(params[:id]).destroy
+  es = EntrySystem.get(params[:id])
+  es.image.destroy if es.image
+  es.pdf_manual.destroy if es.pdf_manual
+  es.destroy
   redirect "/"
 end
 
@@ -127,5 +176,12 @@ delete '/entry_systems/:id/image' do
   @entry_system = EntrySystem.get(params[:id])
   redirect "/" unless @entry_system
   @entry_system.image.destroy if @entry_system.image
+  redirect "/entry_systems/#{@entry_system.id}"
+end
+
+delete '/entry_systems/:id/pdf_manual' do
+  @entry_system = EntrySystem.get(params[:id])
+  redirect "/" unless @entry_system
+  @entry_system.pdf_manual.destroy if @entry_system.pdf_manual
   redirect "/entry_systems/#{@entry_system.id}"
 end
