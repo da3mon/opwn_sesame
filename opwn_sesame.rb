@@ -1,4 +1,4 @@
-%w(rubygems sinatra dm-core dm-validations fileutils).each { |f| require f }
+%w(rubygems sinatra dm-core dm-validations fileutils do_postgres).each { |f| require f }
 
 class EntrySystem
   include DataMapper::Resource
@@ -57,7 +57,7 @@ class PdfManual
 end
 
 configure do
-  DataMapper.setup(:default, 'sqlite3::memory')
+  DataMapper.setup(:default, 'postgres://localhost/entry_systems')
   EntrySystem.auto_migrate!
   Image.auto_migrate!
   PdfManual.auto_migrate!
