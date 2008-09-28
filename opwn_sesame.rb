@@ -24,6 +24,7 @@ class Image
   
   def data=(tmp_file)
     Thread.new do
+      puts "writing file"
       File.open(File.join(File.dirname(__FILE__), *%W[public images #{self.filename}]), 'w') {|f| f.write tmp_file.read}
     end
   end
@@ -46,6 +47,7 @@ class PdfManual
 
   def data=(tmp_file)
     Thread.new do
+      puts "writing file"
       File.open(File.join(File.dirname(__FILE__), *%W[public pdfs #{self.filename}]), 'w') {|f| f.write tmp_file.read}
     end
   end
@@ -58,9 +60,7 @@ end
 
 configure do
   DataMapper.setup(:default, 'postgres://localhost/entry_systems')
-  EntrySystem.auto_migrate!
-  Image.auto_migrate!
-  PdfManual.auto_migrate!
+  DataMapper.auto_migrate!
 end
 
 layout 'layout.erb'
