@@ -1,4 +1,4 @@
-%w(rubygems sinatra dm-core dm-validations fileutils do_postgres).each { |f| require f }
+%w(rubygems sinatra dm-core dm-validations fileutils do_postgres RMagick).each { |f| require f }
 
 class EntrySystem
   include DataMapper::Resource
@@ -17,15 +17,16 @@ class Image
   property :id, Serial, :key => true
   property :filename, String
   property :content_type, String
-  property :link, Text
+  property :link, String, :length => 0..255
   property :entry_system_id, Integer
 
   belongs_to :entry_system
   
   def data=(tmp_file)
     Thread.new do
-      puts "writing file"
-      File.open(File.join(File.dirname(__FILE__), *%W[public images #{self.filename}]), 'w') {|f| f.write tmp_file.read}
+      image = Magick::Image.from_blob(tmp_file.read).first
+      image.change_geometry!("80x170") { |cols, rows| image.thumbnail! cols, rows }
+      image.write(File.join(File.dirname(__FILE__), *%W[public images #{entry_system.filename}]))
     end
   end
   
@@ -47,7 +48,6 @@ class PdfManual
 
   def data=(tmp_file)
     Thread.new do
-      puts "writing file"
       File.open(File.join(File.dirname(__FILE__), *%W[public pdfs #{self.filename}]), 'w') {|f| f.write tmp_file.read}
     end
   end
