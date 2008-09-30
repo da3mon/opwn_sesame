@@ -1,8 +1,8 @@
-%w(rubygems spec sinatra sinatra/test/rspec).each { |f| require f }
+%w(rubygems spec sinatra sinatra/test/rspec opwn_sesame).each { |f| require f }
 
 describe "opwn_sesame" do
-  require "opwn_sesame"
   attr_reader :response
+  
   before(:each) do
     EntrySystem.all.should == []
   end
