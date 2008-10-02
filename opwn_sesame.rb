@@ -1,4 +1,4 @@
-%w(rubygems sinatra dm-core dm-validations fileutils do_postgres RMagick).each { |f| require f }
+%w(rubygems sinatra dm-core dm-validations fileutils do_postgres).each { |f| require f }
 Dir[File.join(File.dirname(__FILE__), *%w[lib *])].each { |f| require f }
 
 configure do

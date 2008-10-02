@@ -1,14 +1,24 @@
-%w(opwn_sesame).each { |f| require f }
-require 'spec/interop/test'
-require 'sinatra/test/methods'
-puts YAML.dump(Sinatra.application.events)
+%w(spec dm-core dm-validations).each { |f| require f }
+Dir[File.join(File.dirname(__FILE__), *%w[.. lib *])].each { |f| require f }
 
-include Sinatra::Test::Methods
+Spec::Runner.configure do |c|
+  c.mock_with :rr
+  c.before(:all) do
+    DataMapper.setup(:default, 'sqlite3::memory:')
+    DataMapper.auto_migrate!
+  end
+end
 
-Sinatra::Application.default_options.merge!(
-  :env => :test,
-  :run => false,
-  :raise_errors => true,
-  :logging => true
-)
+class Hash
+  def drop(*keys)
+    copy = self.dup
+    keys.each { |k| copy.delete(k) }
+    copy
+  end
+end
 
+describe Hash do
+  it "#drop" do
+    {:a => :foo, :b => :bar}.drop(:a).should == {:b => :bar}
+  end
+end
