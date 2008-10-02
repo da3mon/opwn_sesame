@@ -2,7 +2,6 @@ require File.join(File.dirname(__FILE__), *%w[spec_helper])
 
 describe "opwn_sesame" do
   attr_reader :response
-  
   before(:each) do
     EntrySystem.all.should == []
   end
@@ -15,7 +14,6 @@ describe "opwn_sesame" do
     es = EntrySystem.create(:name => "name", :manufacturer => "manufacturer")
     
     get_it '/'
-    puts response.inspect.gsub('<', '')
     response.should be_ok
     body.should include(es.name)
     body.should include(es.manufacturer)

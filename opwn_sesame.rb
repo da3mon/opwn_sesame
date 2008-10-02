@@ -1,62 +1,5 @@
 %w(rubygems sinatra dm-core dm-validations fileutils do_postgres RMagick).each { |f| require f }
-
-class EntrySystem
-  include DataMapper::Resource
-  property :id, Serial, :key => true
-  property :name, String, :nullable => false
-  property :manufacturer, String, :nullable => false
-  property :prompt, String
-  property :password, String
-  
-  has 1, :image
-  has 1, :pdf_manual
-end
-
-class Image
-  include DataMapper::Resource
-  property :id, Serial, :key => true
-  property :filename, String
-  property :content_type, String
-  property :link, String, :length => 0..255
-  property :entry_system_id, Integer
-
-  belongs_to :entry_system
-  
-  def data=(tmp_file)
-    Thread.new do
-      image = Magick::Image.from_blob(tmp_file.read).first
-      image.change_geometry!("80x170") { |cols, rows| image.thumbnail! cols, rows }
-      image.write(File.join(File.dirname(__FILE__), *%W[public images #{entry_system.filename}]))
-    end
-  end
-  
-  def destroy
-    FileUtils.rm_rf(File.join(File.dirname(__FILE__), *%W[public images #{self.filename}]))
-    super
-  end
-end
-
-class PdfManual
-  include DataMapper::Resource
-  property :id, Serial, :key => true
-  property :filename, String
-  property :content_type, String
-  property :link, Text
-  property :entry_system_id, Integer
-  
-  belongs_to :entry_system
-
-  def data=(tmp_file)
-    Thread.new do
-      File.open(File.join(File.dirname(__FILE__), *%W[public pdfs #{self.filename}]), 'w') {|f| f.write tmp_file.read}
-    end
-  end
-  
-  def destroy
-    FileUtils.rm_rf(File.join(File.dirname(__FILE__), *%W[public pdfs #{self.filename}]))
-    super
-  end
-end
+Dir[File.join(File.dirname(__FILE__), *%w[lib *])].each { |f| require f }
 
 configure do
   DataMapper.setup(:default, 'postgres://localhost/entry_systems')
@@ -67,7 +10,6 @@ layout 'layout.erb'
 
 get '/' do
   @entry_systems = EntrySystem.all
-  puts "here"
   erb :entry_systems_index
 end
 
