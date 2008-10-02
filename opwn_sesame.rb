@@ -67,6 +67,7 @@ layout 'layout.erb'
 
 get '/' do
   @entry_systems = EntrySystem.all
+  puts "here"
   erb :entry_systems_index
 end
 
