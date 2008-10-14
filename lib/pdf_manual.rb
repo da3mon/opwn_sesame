@@ -1,5 +1,7 @@
 class PdfManual
   include DataMapper::Resource
+  include FileAttachment
+
   property :id, Serial, :key => true
   property :filename, String
   property :content_type, String
@@ -8,14 +10,8 @@ class PdfManual
   
   belongs_to :entry_system
 
-  def data=(tmp_file)
-    Thread.new do
-      File.open(File.join(File.dirname(__FILE__), *%W[public pdfs #{self.filename}]), 'w') {|f| f.write tmp_file.read}
-    end
-  end
-  
-  def destroy
-    FileUtils.rm_rf(File.join(File.dirname(__FILE__), *%W[public pdfs #{self.filename}]))
+  def initialize(attrs)
+    @data = attrs.delete(:data) if attrs[:data]
     super
   end
 end

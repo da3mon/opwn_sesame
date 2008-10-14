@@ -22,21 +22,21 @@ describe Image do
     describe "before save" do
       it "saves data as an image" do
         File.exists?(created_file).should_not be_true
-        mock(Thread).new do
-          image = Image.new(attrs)
-          File.exists?(created_file).should be_true
-        end
+        thread = nil
+        mock(Thread).new.yields
+        image = Image.create(attrs)
+        File.exists?(created_file).should be_true
       end
     end
 
     describe "before destroy" do
       it "deletes the corresponding image file" do
+        File.exists?(created_file).should_not be_true
+        thread = nil
+        mock(Thread).new.twice.yields
         image = Image.create(attrs)
-        File.exists?(created_file).should be_true
-        mock(Thread).new do
-          image.destroy
-          File.exists?(created_file).should_not be_true
-        end
+        image.destroy
+        File.exists?(created_file).should_not be_true
       end
     end
   end
