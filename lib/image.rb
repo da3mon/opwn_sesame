@@ -26,7 +26,7 @@ class Image
   def save_file_type
     Thread.new do
       image = Magick::Image.from_blob(data.read).first
-      image.change_geometry!("80x170") { |cols, rows| image.thumbnail! cols, rows }
+      image.change_geometry!("240x190") { |cols, rows| image.thumbnail! cols, rows }
       image.write(file_path)
     end
   end
