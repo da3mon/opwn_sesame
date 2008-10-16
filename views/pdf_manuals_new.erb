@@ -1,23 +1,23 @@
 <h2>upload manual for: <%= @entry_system.manufacturer %> - <%= @entry_system.name %></h1>
 <form action="/entry_systems/<%= @entry_system.id %>/pdf_manual" method="post" enctype="multipart/form-data">
-	<% unless @pdf_manual.errors.empty? %>
-		<ul class="errors">
-			<%= @pdf_manual.errors.map {|msg| "<li>#{msg}</li>"} %>
-		</ul>
-	<% end %>
-	<ul>
-		<li>
-			<label for="pdf_manual">manual: </label>
-			<input type="file" name="pdf_manual" id="pdf_manual">
-		</li>
-		<li>or</li>
-		<li>
-			<label for="link">link: </label>
-			<input type="text" name="link" id="link">
-		</li>
-		<li><input type="submit" value="upload &rarr;"></li>
-		<li>
-			<a href="/">&larr; index</a>
-		</li>
-	</ul>
+  <% unless @pdf_manual.errors.empty? %>
+    <ul class="errors">
+      <%= @pdf_manual.errors.map {|msg| "<li>#{msg}</li>"} %>
+    </ul>
+  <% end %>
+  <ul>
+    <li>
+      <label for="pdf_manual">manual: </label>
+      <input type="file" name="pdf_manual" id="pdf_manual">
+    </li>
+    <li>or</li>
+    <li>
+      <label for="link">link: </label>
+      <input type="text" name="link" id="link">
+    </li>
+    <li><input type="submit" value="upload &rarr;"></li>
+    <li>
+      <a href="/">&larr; index</a>
+    </li>
+  </ul>
 </form>

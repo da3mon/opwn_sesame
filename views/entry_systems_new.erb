@@ -1,37 +1,37 @@
 <h1>
-	new entry system
+  new entry system
 </h1>
 <% unless @entry_system.errors.empty? %>
-	<ul class="errors">
-		<%= @entry_system.errors.map {|msg| "<li>#{msg}</li>" } %>
-	</ul>
+  <ul class="errors">
+    <%= @entry_system.errors.map {|msg| "<li>#{msg}</li>" } %>
+  </ul>
 <% end %>
 <form action="/entry_systems" method="post">
-	<p>
-		name and manufacturer are required
-	</p>
-	<ul>
-		<li>
-			<label for="entry_system_name">name: </label>
-			<input id="entry_system_name" name="name" size="30" type="text" value="<%= @entry_system.name || "" %>">
-		</li>
-		<li>
-			<label for="entry_system_manufacturer">manufacturer: </label>
-			<input id="entry_system_manufacturer" name="manufacturer" size="30" type="text" value="<%= @entry_system.manufacturer || "" %>">
-		</li>
-		<li>
-			<label for="entry_system_prompt">prompt: </label>
-			<input id="entry_system_prompt" name="prompt" size="30" type="text" value="<%= @entry_system.prompt || "" %>">
-		</li>
-		<li>
-			<label for="entry_system_password">password: </label>
-			<input id="entry_system_password" name="password" size="30" type="text" value="<%= @entry_system.password || "" %>">
-		</li>
-		<li>
-			<input type="submit" value="create &rarr;">
-		</li>
-		<li>
-			<a href="/">&larr; index</a>
-		</li>
-	</ul>
+  <p>
+    name and manufacturer are required
+  </p>
+  <ul>
+    <li>
+      <label for="entry_system_name">name: </label>
+      <input id="entry_system_name" name="name" size="30" type="text" value="<%= @entry_system.name || "" %>">
+    </li>
+    <li>
+      <label for="entry_system_manufacturer">manufacturer: </label>
+      <input id="entry_system_manufacturer" name="manufacturer" size="30" type="text" value="<%= @entry_system.manufacturer || "" %>">
+    </li>
+    <li>
+      <label for="entry_system_prompt">prompt: </label>
+      <input id="entry_system_prompt" name="prompt" size="30" type="text" value="<%= @entry_system.prompt || "" %>">
+    </li>
+    <li>
+      <label for="entry_system_password">password: </label>
+      <input id="entry_system_password" name="password" size="30" type="text" value="<%= @entry_system.password || "" %>">
+    </li>
+    <li>
+      <input type="submit" value="create &rarr;">
+    </li>
+    <li>
+      <a href="/">&larr; index</a>
+    </li>
+  </ul>
 </form>

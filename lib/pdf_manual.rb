@@ -11,7 +11,20 @@ class PdfManual
   belongs_to :entry_system
 
   def initialize(attrs)
-    @data = attrs.delete(:data) if attrs[:data]
+    self.data = attrs.delete(:data) if attrs[:data]
     super
+  end
+  
+  protected
+  def extension
+    'pdf'
+  end
+  
+  def directory
+    'pdfs'
+  end
+  
+  def save_file_type
+    Thread.new { File.open(file_path, 'w') {|f| f.write data.read} }
   end
 end

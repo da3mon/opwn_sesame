@@ -1,31 +1,31 @@
 <h1>
-	entry system
+  entry system
 </h1>
 <p><%= @errors %></p>
 <form action="/entry_systems/<%= @entry_system.id %>" method="post">
-	<p>
-		name and manufacturer are required:
-	</p>
-	<ul>
-		<li>
-			<label for="entry_system_name">name: </label>
-			<input id="entry_system_name" name="name" size="30" type="text" value="<%= @entry_system.name || "" %>">
-		</li>
-		<li>
-			<label for="entry_system_manufacturer">manufacturer: </label>
-			<input id="entry_system_manufacturer" name="manufacturer" size="30" type="text" value="<%= @entry_system.manufacturer || "" %>">
-		</li>
-		<li>
-			<label for="entry_system_prompt">prompt: </label>
-			<input id="entry_system_prompt" name="prompt" size="30" type="text" value="<%= @entry_system.prompt || "" %>">
-		</li>
-		<li>
-			<label for="entry_system_password">password: </label>
-			<input id="entry_system_password" name="password" size="30" type="text" value="<%= @entry_system.password || "" %>">
-		</li>
-		<li>
-			<input type="hidden" name="_method" value="put">
-			<input type="submit" value="submit">
-		</li>
-	</ul>
+  <p>
+    name and manufacturer are required:
+  </p>
+  <ul>
+    <li>
+      <label for="entry_system_name">name: </label>
+      <input id="entry_system_name" name="name" size="30" type="text" value="<%= @entry_system.name || "" %>">
+    </li>
+    <li>
+      <label for="entry_system_manufacturer">manufacturer: </label>
+      <input id="entry_system_manufacturer" name="manufacturer" size="30" type="text" value="<%= @entry_system.manufacturer || "" %>">
+    </li>
+    <li>
+      <label for="entry_system_prompt">prompt: </label>
+      <input id="entry_system_prompt" name="prompt" size="30" type="text" value="<%= @entry_system.prompt || "" %>">
+    </li>
+    <li>
+      <label for="entry_system_password">password: </label>
+      <input id="entry_system_password" name="password" size="30" type="text" value="<%= @entry_system.password || "" %>">
+    </li>
+    <li>
+      <input type="hidden" name="_method" value="put">
+      <input type="submit" value="submit">
+    </li>
+  </ul>
 </form>

@@ -1,49 +1,49 @@
 <h1>entry systems</h1>
 <ul class="entry_systems">
-	<% @entry_systems.each_with_index do |entry_system, i| %>
-		<li class="<%= i % 2 == 0 ? 'even' : 'odd' %>">
-			<ul>
-				<% if entry_system.image %>
-					<li>
-						<% if entry_system.image.link != "" %>
-							<img src="<%= entry_system.image.link %>" alt="picture of <%= entry_system.name %>" />
-						<% else %>
-							<img src="/images/<%= entry_system.image.filename %>" alt="picture of <%= entry_system.name %>" />
-						<% end %>
-					</li>
-				<% end %>
-				<% if entry_system.pdf_manual %>
-					<li>
-						<% if entry_system.pdf_manual.link %>
-							<a href="<%= entry_system.pdf_manual.link %>">manual</a>
-						<% else %>
-							<a href="/pdfs/<%= entry_system.pdf_manual.filename %>">manual</a>
-						<% end %>
-					</li>
-				<% end %>
-				<li>name: <%= entry_system.name %></li>
-				<li>manufacturer: <%= entry_system.manufacturer %></li>
-				<li><a href="/entry_systems/<%= entry_system.id %>/image/new">image</a></li>
-				<li><a href="/entry_systems/<%= entry_system.id %>/pdf_manual/new">manual</a></li>
-				<li>
-					<a href="/entry_systems/<%= entry_system.id %>/edit">edit</a>&nbsp;
-					<a href="/entry_systems/<%= entry_system.id %>" onclick="if (confirm('Are you sure?')) {
-						var f = document.createElement('form');
-					  f.style.display = 'none';
-						this.parentNode.appendChild(f);
-						f.method = 'POST';
-						f.action = this.href;
-					  var m = document.createElement('input');
-						m.setAttribute('type', 'hidden');
-						m.setAttribute('name', '_method');
-					  m.setAttribute('value', 'delete');
-						f.appendChild(m);f.submit();
-					};return false;">delete</a>
-				</li>
-			</ul>
-		</li>
-	<% end %>
-	<div class="links">
-		<a href="/entry_systems/new">new</a>
-	</div>
+  <% @entry_systems.each_with_index do |entry_system, i| %>
+    <li class="<%= i % 2 == 0 ? 'even' : 'odd' %>">
+      <ul>
+        <% if entry_system.image %>
+          <li>
+            <% if entry_system.image.link != "" %>
+              <img src="<%= entry_system.image.link %>" alt="picture of <%= entry_system.name %>" />
+            <% else %>
+              <img src="/images/<%= entry_system.image.filename %>" alt="picture of <%= entry_system.name %>" />
+            <% end %>
+          </li>
+        <% end %>
+        <% if entry_system.pdf_manual %>
+          <li>
+            <% if entry_system.pdf_manual.link %>
+              <a href="<%= entry_system.pdf_manual.link %>">manual</a>
+            <% else %>
+              <a href="/pdfs/<%= entry_system.pdf_manual.filename %>">manual</a>
+            <% end %>
+          </li>
+        <% end %>
+        <li>name: <%= entry_system.name %></li>
+        <li>manufacturer: <%= entry_system.manufacturer %></li>
+        <li><a href="/entry_systems/<%= entry_system.id %>/image/new">image</a></li>
+        <li><a href="/entry_systems/<%= entry_system.id %>/pdf_manual/new">manual</a></li>
+        <li>
+          <a href="/entry_systems/<%= entry_system.id %>/edit">edit</a>&nbsp;
+          <a href="/entry_systems/<%= entry_system.id %>" onclick="if (confirm('Are you sure?')) {
+            var f = document.createElement('form');
+            f.style.display = 'none';
+            this.parentNode.appendChild(f);
+            f.method = 'POST';
+            f.action = this.href;
+            var m = document.createElement('input');
+            m.setAttribute('type', 'hidden');
+            m.setAttribute('name', '_method');
+            m.setAttribute('value', 'delete');
+            f.appendChild(m);f.submit();
+          };return false;">delete</a>
+        </li>
+      </ul>
+    </li>
+  <% end %>
+  <div class="links">
+    <a href="/entry_systems/new">new</a>
+  </div>
 </ul>

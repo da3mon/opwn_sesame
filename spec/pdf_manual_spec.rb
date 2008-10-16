@@ -6,7 +6,7 @@ describe PdfManual do
   end
   
   def created_file
-    File.join(File.dirname(__FILE__), *%W[.. public images filename.png])
+    File.join(File.dirname(__FILE__), *%W[.. public pdfs filename.pdf])
   end
   
   attr_reader :attrs
