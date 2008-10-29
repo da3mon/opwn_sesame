@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), *%w[spec_helper])
 
 describe Image do
   def fixture_file
-    File.open(File.join(File.dirname(__FILE__), *%w[fixtures v.jpg]))
+    File.open(File.join(File.dirname(__FILE__), *%w[fixtures v.jpg])).read
   end
   
   def created_file
@@ -22,8 +22,6 @@ describe Image do
     describe "before save" do
       it "saves data as an image" do
         File.exists?(created_file).should_not be_true
-        thread = nil
-        mock(Thread).new.yields
         image = Image.create(attrs)
         File.exists?(created_file).should be_true
       end
@@ -32,8 +30,6 @@ describe Image do
     describe "before destroy" do
       it "deletes the corresponding image file" do
         File.exists?(created_file).should_not be_true
-        thread = nil
-        mock(Thread).new.twice.yields
         image = Image.create(attrs)
         image.destroy
         File.exists?(created_file).should_not be_true

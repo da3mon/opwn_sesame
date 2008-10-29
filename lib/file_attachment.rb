@@ -17,6 +17,6 @@ module FileAttachment
   end
   
   def delete_file
-    Thread.new { FileUtils.rm_rf file_path }
+    FileUtils.rm_rf file_path
   end
 end

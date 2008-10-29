@@ -1,8 +1,8 @@
-%w(rubygems sinatra dm-core dm-validations fileutils do_postgres).each { |f| require f }
+%w(rubygems sinatra dm-core dm-validations fileutils do_sqlite3).each { |f| require f }
 Dir[File.join(File.dirname(__FILE__), *%w[lib *])].each { |f| require f }
 
 configure do
-  DataMapper.setup(:default, 'postgres://localhost/entry_systems')
+  DataMapper.setup(:default, "sqlite3:///#{Dir.pwd}entry_systems.db")
   DataMapper.auto_migrate!
 end
 
@@ -61,10 +61,8 @@ post '/entry_systems/:id/image' do
   @entry_system = EntrySystem.get(params[:id])
   redirect "/entry_systems/new" unless @entry_system
   @image = Image.new(
-    :link => params[:link],
     :filename => @entry_system.name.gsub(/\W/, '_'),
-    :content_type => params[:image][:type],
-    :data => params[:image][:tempfile]
+    :data => params[:image][:tempfile].read
   )
   if @image.save
     @entry_system.image = @image
@@ -81,7 +79,6 @@ post '/entry_systems/:id/pdf_manual' do
   @pdf_manual = PdfManual.new(
     :link => params[:link],
     :filename => @entry_system.name.gsub(/\W/, '_'),
-    :content_type => params[:pdf_manual][:type],
     :data => params[:pdf_manual][:tempfile]
   )
   if @pdf_manual.save

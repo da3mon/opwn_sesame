@@ -6,11 +6,7 @@
 <ul>
   <% if @entry_system.image %>
     <li>
-      <% if @entry_system.image.link != "" %>
-        <img src="<%= @entry_system.image.link %>" alt="picture of <%= @entry_system.name %>" />
-      <% else %>
-        <img src="/images/<%= @entry_system.image.filename %>" alt="picture of <%= @entry_system.name %>" />
-      <% end %>
+      <img src="/images/<%= @entry_system.image.filename + "." + @entry_system.image.extension %>" alt="picture of <%= @entry_system.name %>" />
     </li>
   <% end %>
   <% if @entry_system.pdf_manual %>
