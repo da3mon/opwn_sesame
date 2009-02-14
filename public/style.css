@@ -1,48 +1,48 @@
 html {
-	font-family: Helvetica;
-	font-size: 18px;
-	color: #ddd;
-	background-color: #222;
+  font-family: Helvetica;
+  font-size: 18px;
+  color: #ddd;
+  background-color: #222;
 }
 
 ul {
-	list-style: none;
+  list-style: none;
 }
 
 ul.errors {
-	color: #000;
-	background-color: #800000;
-	padding: 10px;
-	margin: 10px;
+  color: #000;
+  background-color: #800000;
+  padding: 10px;
+  margin: 10px;
 }
 
 li {
-	margin: 5px 5px;
+  margin: 5px 5px;
 }
 
 li.even {
-	background-color: #282828;
-	padding: 5px 5px;
-	margin: 0;
+  background-color: #282828;
+  padding: 5px 5px;
+  margin: 0;
 }
 
 li.odd {
-	background-color: #333;
-	padding: 5px 5px;
-	margin: 0;
+  background-color: #333;
+  padding: 5px 5px;
+  margin: 0;
 }
 
 a {
-	text-decoration: none;
-	color: #7A9CDD;
+  text-decoration: none;
+  color: #7A9CDD;
 }
 
 a:hover {
-	text-decoration: underline;
-	color: #7A9CDD;
+  text-decoration: underline;
+  color: #7A9CDD;
 }
 
 input {
-	background-color: #aaa;
-	border: 1px solid #ddd;
+  background-color: #aaa;
+  border: 1px solid #ddd;
 }
